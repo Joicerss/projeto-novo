@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Relatório Jurimetria — Completo</title>
+  <style>
+    body{font-family:Segoe UI, Roboto, Arial, sans-serif; max-width:1100px;margin:24px auto;color:#111}
+    h1,h2{color:#0b5;}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .card{border:1px solid #ddd;padding:12px;border-radius:6px;flex:1 1 300px}
+    img{max-width:100%;height:auto;border:1px solid #eee}
+    pre{background:#f8f8f8;padding:12px;border-radius:6px;overflow:auto}
+    table.table{border-collapse:collapse;width:100%}
+    table.table th, table.table td{border:1px solid #ddd;padding:6px;text-align:left}
+  </style>
+</head>
+<body>
+  <h1>Relatório — Jurimetria (Completo)</h1>
+  <p>Gerado automaticamente. As figuras abaixo e as tabelas extraídas dos CSVs.</p>
+
+  <h2>Figuras</h2>
+  <div class="row">
+    <div class="card">
+      <h3>Distribuição do tempo de tramitação</h3>
+      <img src="distribuicao_tempo_tramitacao.png" alt="Distribuição tempo tramitação"/>
+    </div>
+
+    <div class="card">
+      <h3>Resultado por juiz</h3>
+      <img src="resultado_por_juiz.png" alt="Resultado por juiz"/>
+    </div>
+
+    <div class="card">
+      <h3>Boxplot do valor da causa</h3>
+      <img src="boxplot_valor_causa.png" alt="Boxplot valor da causa"/>
+    </div>
+
+    <div class="card">
+      <h3>Kaplan–Meier (sobrevivência)</h3>
+      <img src="kaplan_meier_survival.png" alt="Kaplan Meier"/>
+    </div>
+
+    <div class="card">
+      <h3>Detecção de quebra estrutural</h3>
+      <img src="quebra_estrutural_detectada.png" alt="Quebra estrutural"/>
+    </div>
+  </div>
+
+  <h2>Tabelas (CSV)</h2>
+  <h3>Regressão Logística — Odds Ratios</h3>
+  <table class="dataframe table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Variável</th>
+      <th>Odds Ratio (Razão de Chances)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>juiz_Juiz B</td>
+      <td>1.372715</td>
+    </tr>
+    <tr>
+      <td>classe_Trabalhista</td>
+      <td>1.150272</td>
+    </tr>
+    <tr>
+      <td>faixa_valor_Alto</td>
+      <td>1.069585</td>
+    </tr>
+    <tr>
+      <td>tempo_tramitacao_dias</td>
+      <td>1.040796</td>
+    </tr>
+    <tr>
+      <td>juiz_Juiz C</td>
+      <td>1.014508</td>
+    </tr>
+    <tr>
+      <td>classe_Criminal</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <td>faixa_valor_Médio</td>
+      <td>0.844850</td>
+    </tr>
+  </tbody>
+</table>
+
+  <h3>CoxPH — Sumário (hazard ratios)</h3>
+  <table class="dataframe table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>covariate</th>
+      <th>coef</th>
+      <th>exp(coef)</th>
+      <th>se(coef)</th>
+      <th>coef lower 95%</th>
+      <th>coef upper 95%</th>
+      <th>exp(coef) lower 95%</th>
+      <th>exp(coef) upper 95%</th>
+      <th>cmp to</th>
+      <th>z</th>
+      <th>p</th>
+      <th>-log2(p)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>juiz_Juiz B</td>
+      <td>0.140243</td>
+      <td>1.150553</td>
+      <td>0.310332</td>
+      <td>-0.467996</td>
+      <td>0.748481</td>
+      <td>0.626256</td>
+      <td>2.113788</td>
+      <td>0.0</td>
+      <td>0.451913</td>
+      <td>0.651332</td>
+      <td>0.618535</td>
+    </tr>
+    <tr>
+      <td>juiz_Juiz C</td>
+      <td>0.529747</td>
+      <td>1.698503</td>
+      <td>0.284478</td>
+      <td>-0.027819</td>
+      <td>1.087313</td>
+      <td>0.972565</td>
+      <td>2.966293</td>
+      <td>0.0</td>
+      <td>1.862176</td>
+      <td>0.062578</td>
+      <td>3.998194</td>
+    </tr>
+    <tr>
+      <td>classe_Trabalhista</td>
+      <td>0.245247</td>
+      <td>1.277937</td>
+      <td>0.252293</td>
+      <td>-0.249237</td>
+      <td>0.739732</td>
+      <td>0.779395</td>
+      <td>2.095374</td>
+      <td>0.0</td>
+      <td>0.972075</td>
+      <td>0.331013</td>
+      <td>1.595039</td>
+    </tr>
+  </tbody>
+</table>
+
+  <footer style="margin-top:24px;color:#666;font-size:0.9em">Relatório criado automaticamente pelo gerador — mantenha os arquivos nesta pasta para referência.</footer>
+</body>
+</html>
