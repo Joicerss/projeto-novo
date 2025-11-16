@@ -19,7 +19,7 @@ O script realiza as seguintes ações:
 1. **Verificação automática (se VS Code CLI disponível)**:
    - Executa `code --list-extensions` para listar extensões instaladas
    - Verifica se `GitHub.copilot` e `GitHub.copilot-chat` estão na lista
-   - Reporta o status: "Installed" ou "Install"
+   - Reporta o status: "Instalado" ou "Instalar"
 
 2. **Verificação manual (se CLI não disponível)**:
    - Lê o arquivo `.vscode/extensions.json` para ver extensões recomendadas
@@ -31,8 +31,8 @@ O script realiza as seguintes ações:
 Quando as extensões estão instaladas:
 ```
 encontrei:
-  ✓ GitHub Copilot: Installed
-  ✓ GitHub Copilot Chat: Installed
+  ✓ GitHub Copilot: Instalado
+  ✓ GitHub Copilot Chat: Instalado
 
 Próximo passo: Sign in (aguardando comando...)
 ```
@@ -40,8 +40,8 @@ Próximo passo: Sign in (aguardando comando...)
 Quando as extensões precisam ser instaladas:
 ```
 encontrei:
-  ⚠ GitHub Copilot: Install
-  ⚠ GitHub Copilot Chat: Install
+  ⚠ GitHub Copilot: Instalar
+  ⚠ GitHub Copilot Chat: Instalar
 
 Próximo passo: Sign in (aguardando comando...)
 ```
@@ -60,8 +60,8 @@ Se o script solicitar verificação manual:
 2. Pressione `Ctrl+Shift+X` (Windows/Linux) ou `Cmd+Shift+X` (Mac)
 3. Procure por "GitHub Copilot" e "GitHub Copilot Chat"
 4. Verifique se o botão mostra:
-   - "Installed" (verde com check) = extensão instalada
-   - "Install" (azul) = precisa instalar
+   - "Instalado" (verde com check) = extensão instalada
+   - "Instalar" (azul) = precisa instalar
 
 ## Extensões recomendadas
 
