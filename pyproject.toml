@@ -22,3 +22,6 @@ dev = [
 
 [project.scripts]
 generate-report = "generate_report_complete:main"
+
+[tool.setuptools]
+py-modules = ["generate_report_complete"]
