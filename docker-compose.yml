@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  pipeline:
+    build: .
+    volumes:
+      - .:/app
+    command: python starter_scripts/01_pipeline_responder_14_questoes.py
