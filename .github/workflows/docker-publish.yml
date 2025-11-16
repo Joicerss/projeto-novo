@@ -39,8 +39,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/projeto-novo:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/projeto-novo:latest
+            ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:${{ github.sha }}
+            ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -66,13 +66,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull image
-        run: |
-          IMAGE=ghcr.io/${{ github.repository_owner }}/projeto-novo:latest
+          run: |
+          IMAGE=ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
           docker pull $IMAGE
 
       - name: Run smoke test (execute pipeline inside container)
-        run: |
-          IMAGE=ghcr.io/${{ github.repository_owner }}/projeto-novo:latest
+          run: |
+          IMAGE=ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
           mkdir -p $GITHUB_WORKSPACE/outputs
           docker run --rm \
             -v $GITHUB_WORKSPACE/data:/app/data \
