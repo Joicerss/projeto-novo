@@ -1,38 +1,121 @@
-# Jurimetria Case — Resultados
+# Projeto Novo - Jurimetria Case
 
-Esta pasta contém os resultados gerados pelo script `jurimetria_completa.py`.
+A jurimetrics analysis and reporting tool for legal data visualization and statistical analysis.
 
-Arquivos principais:
+## Overview
 
-- `distribuicao_tempo_tramitacao.png` — histograma do tempo de tramitação.
-- `resultado_por_juiz.png` — contagem de resultados por juiz.
-- `boxplot_valor_causa.png` — boxplot do valor da causa por resultado.
-- `kaplan_meier_survival.png` — curva de sobrevivência Kaplan–Meier.
-- `quebra_estrutural_detectada.png` — gráfico com a quebra estrutural detectada (simulada).
-- `resultados_regressao_logistica.csv` — odds ratios / coeficientes da regressão logística.
-- `hazard_ratios_cox.csv` — sumário do modelo CoxPH (hazard ratios).
-- `classification_report.txt` — relatório de classificação (texto) do conjunto de teste.
-- `confusion_matrix.csv` — matriz de confusão em formato CSV.
-- `cv_scores.csv` — valores de acurácia por fold do cross-validation.
-- `report_complete.html` — relatório HTML completo (figuras + tabelas).
+This repository contains tools and results for jurimetric analysis, including:
+- Statistical analysis of legal case data
+- Survival analysis (Kaplan-Meier curves)
+- Logistic regression and Cox proportional hazards models
+- Automated HTML report generation
 
-Como reproduzir:
+## Project Structure
 
-1. Garanta que o Python 3.8+ e as dependências estejam instaladas (ver `requirements.txt`).
-2. Rode o script principal (no diretório onde o script está):
-
-```powershell
-& "C:\Path\to\python.exe" "C:\Users\Usuario\OneDrive\Área de Trabalho\jurimetria_completa.py"
+```
+.
+├── generate_report_complete.py    # Main report generation script
+├── requirements.txt               # Python dependencies
+├── pyproject.toml                # Python package configuration
+├── README.md                     # This file
+├── .github/workflows/            # CI/CD workflows
+│   └── python-publish.yml        # PyPI publishing workflow
+└── Data files:
+    ├── *.png                     # Visualization plots
+    ├── *.csv                     # Analysis results
+    └── *.html                    # Generated reports
 ```
 
-3. Os arquivos serão gravados nesta pasta `jurimetria_case/`.
+## Data Files
 
-Git local
+- `distribuicao_tempo_tramitacao.png` — Histogram of case processing time
+- `resultado_por_juiz.png` — Results count by judge
+- `boxplot_valor_causa.png` — Boxplot of case value by outcome
+- `kaplan_meier_survival.png` — Kaplan-Meier survival curve
+- `quebra_estrutural_detectada.png` — Structural break detection (simulated)
+- `resultados_regressao_logistica.csv` — Logistic regression odds ratios
+- `hazard_ratios_cox.csv` — Cox proportional hazards model summary
+- `classification_report.txt` — Classification report for test set
+- `confusion_matrix.csv` — Confusion matrix
+- `cv_scores.csv` — Cross-validation accuracy scores
+- `report_complete.html` — Complete HTML report with figures and tables
 
-- Nesta pasta já existe um repositório Git local inicializado e com um commit.
-- Para enviar para um remoto: `git remote add origin <URL>` seguido de `git push -u origin main` (forneça credenciais se solicitado).
+## Installation
 
-Observações
+### Prerequisites
 
-- Os dados são simulados para demonstração.
-- Se quiser que eu inclua o script de processamento (`processar_dados_csv.py`) ou configure um CI para regenerar relatórios automaticamente, diga e eu faço.
+- Python 3.8 or higher
+- pip package manager
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Joicerss/projeto-novo.git
+cd projeto-novo
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Or install the package in development mode:
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Generate HTML Report
+
+Run the report generation script:
+
+```bash
+python generate_report_complete.py
+```
+
+Or if installed as a package:
+```bash
+generate-report
+```
+
+The script will generate `report_complete.html` in the current directory, combining:
+- All visualization plots (PNG files)
+- Statistical analysis results (CSV tables)
+
+### View the Report
+
+Open `report_complete.html` in a web browser to view the complete analysis report.
+
+## Development
+
+### Running Tests
+
+```bash
+pytest
+```
+
+### Building the Package
+
+```bash
+python -m build
+```
+
+## CI/CD
+
+This repository includes a GitHub Actions workflow that automatically publishes the package to PyPI when a release is created.
+
+## Notes
+
+- The data used in this project is simulated for demonstration purposes
+- All generated reports and visualizations are reproducible from the source data
+- The HTML reports are self-contained and can be shared independently
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+This project is available for educational and research purposes.
