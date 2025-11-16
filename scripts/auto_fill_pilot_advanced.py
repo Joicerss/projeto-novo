@@ -11,6 +11,7 @@ Gera: `outputs/pilot_30_filled_advanced.xlsx` e CSV correspondente.
 
 Uso: python scripts/auto_fill_pilot_advanced.py
 """
+import os
 import re
 from pathlib import Path
 import pandas as pd
@@ -60,8 +61,14 @@ def fill_advanced(row):
     p3 = contains_any(txt, KEYS_SENTENCA)
     filled['pergunta_3'] = 'sim' if p3 else 'nao'
 
-    # pergunta_4: marcar indenização somente se houver menção de valor monetário (R$)
-    p4 = bool(RE_VALOR.search(txt))
+    # pergunta_4: comportamento configurável via HEURISTICS_MODE
+    # - strict: marca indenização apenas se houver menção de valor monetário (R$)
+    # - lenient: marca indenização por palavra-chave OU valor
+    mode = os.getenv('HEURISTICS_MODE', 'strict').lower()
+    if mode == 'lenient':
+        p4 = contains_any(txt, KEYS_INDEMN) or bool(RE_VALOR.search(txt))
+    else:
+        p4 = bool(RE_VALOR.search(txt))
     filled['pergunta_4'] = 'sim' if p4 else 'nao'
 
     # pergunta_5: extrair CNPJ/CPF se houver

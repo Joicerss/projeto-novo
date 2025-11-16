@@ -23,3 +23,18 @@ Arquivos gerados:
 - `outputs/flags_summary.csv` — estatísticas por flag
 - `outputs/flags_inspection.xlsx` — amostra para revisão
 - `outputs/modelo_respostas.xlsx` — planilha modelo com 14 perguntas
+
+Configuração de heurísticas:
+
+- Variável de ambiente `HEURISTICS_MODE`: controla comportamento das heurísticas.
+	- `strict` (padrão): marca `pergunta_4` (indenização) apenas quando há valor monetário explícito (ex.: `R$ 1.234,56`).
+	- `lenient`: marca `pergunta_4` quando houver palavra-chave relacionada à indenização OU valor monetário.
+
+Exemplo (modo lenient):
+
+```bash
+export HEURISTICS_MODE=lenient
+python starter_scripts/01_pipeline_responder_14_questoes.py
+python scripts/auto_fill_pilot_advanced.py
+```
+
