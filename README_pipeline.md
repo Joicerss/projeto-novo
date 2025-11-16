@@ -38,3 +38,17 @@ python starter_scripts/01_pipeline_responder_14_questoes.py
 python scripts/auto_fill_pilot_advanced.py
 ```
 
+Também é possível controlar via arquivo de configuração no repositório. O script busca, na raiz do repositório, um dos arquivos:
+- `heuristics.yml` / `heuristics.yaml` (YAML)
+- `heuristics.json` (JSON)
+
+Exemplo `heuristics.yml`:
+
+```yaml
+mode: lenient
+# ou: HEURISTICS_MODE: lenient
+```
+
+Se presente, o arquivo terá precedência sobre o padrão, mas será sobrescrito pela variável de ambiente `HEURISTICS_MODE` quando esta estiver definida.
+
+

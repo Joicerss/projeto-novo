@@ -12,9 +12,14 @@ Gera: `outputs/pilot_30_filled_advanced.xlsx` e CSV correspondente.
 Uso: python scripts/auto_fill_pilot_advanced.py
 """
 import os
+import json
 import re
 from pathlib import Path
 import pandas as pd
+try:
+    import yaml
+except Exception:
+    yaml = None
 
 
 RE_CNPJ = re.compile(r"\b(\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}|\d{14})\b")
@@ -62,9 +67,39 @@ def fill_advanced(row):
     filled['pergunta_3'] = 'sim' if p3 else 'nao'
 
     # pergunta_4: comportamento configurável via HEURISTICS_MODE
-    # - strict: marca indenização apenas se houver menção de valor monetário (R$)
-    # - lenient: marca indenização por palavra-chave OU valor
-    mode = os.getenv('HEURISTICS_MODE', 'strict').lower()
+    # Ordem de resolução (do mais prioritário ao menos):
+    # 1. Variável de ambiente `HEURISTICS_MODE`
+    # 2. Arquivo de configuração `heuristics.yml` / `heuristics.yaml` / `heuristics.json` com chave `mode`
+    # 3. Padrão: 'strict'
+    def get_heuristics_mode():
+        # 1) env
+        env_mode = os.getenv('HEURISTICS_MODE')
+        if env_mode:
+            return env_mode.lower()
+        # 2) file in repo root
+        repo_root = Path(__file__).resolve().parents[1]
+        y_paths = [repo_root / 'heuristics.yml', repo_root / 'heuristics.yaml']
+        j_path = repo_root / 'heuristics.json'
+        for p in y_paths:
+            if p.exists() and yaml is not None:
+                try:
+                    cfg = yaml.safe_load(p.read_text()) or {}
+                    m = cfg.get('mode') or cfg.get('HEURISTICS_MODE') or cfg.get('heuristics_mode')
+                    if m:
+                        return str(m).lower()
+                except Exception:
+                    continue
+        if j_path.exists():
+            try:
+                cfg = json.loads(j_path.read_text())
+                m = cfg.get('mode') or cfg.get('HEURISTICS_MODE') or cfg.get('heuristics_mode')
+                if m:
+                    return str(m).lower()
+            except Exception:
+                pass
+        return 'strict'
+
+    mode = get_heuristics_mode()
     if mode == 'lenient':
         p4 = contains_any(txt, KEYS_INDEMN) or bool(RE_VALOR.search(txt))
     else:
