@@ -16,10 +16,13 @@ import json
 import re
 from pathlib import Path
 import pandas as pd
+import logging
 try:
     import yaml
 except Exception:
     yaml = None
+
+logger = logging.getLogger(__name__)
 
 
 RE_CNPJ = re.compile(r"\b(\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}|\d{14})\b")
@@ -107,7 +110,7 @@ def fill_advanced(row):
             if mval in allowed:
                 return mval
             else:
-                print(f"Aviso: valor inválido para 'mode' em arquivo de heurísticas: '{m}'. Usando 'strict' por padrão.")
+                logger.warning("Valor inválido para 'mode' em arquivo de heurísticas: '%s'. Usando 'strict' por padrão.", m)
                 return 'strict'
         return 'strict'
 
@@ -172,7 +175,7 @@ def main():
     out_csv = Path('outputs/pilot_30_filled_advanced.csv')
     df.to_excel(out_xlsx, index=False)
     df.to_csv(out_csv, index=False)
-    print(f'Preenchimento avançado salvo: {out_xlsx} (linhas={len(df)})')
+    logger.info('Preenchimento avançado salvo: %s (linhas=%d)', out_xlsx, len(df))
 
 
 if __name__ == '__main__':
