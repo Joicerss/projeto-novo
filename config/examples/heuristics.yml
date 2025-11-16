@@ -1,0 +1,5 @@
+# Exemplo de configuração de heurísticas
+# mode: 'strict' or 'lenient'
+# - strict: exige valor monetário (R$) para marcar indenização
+# - lenient: aceita palavra-chave OU valor
+mode: lenient

@@ -1,0 +1,9 @@
+# Ignored files for development
+.venv/
+venv/
+__pycache__/
+outputs/
+data/sample_test.csv
+.pytest_cache/
+.DS_Store
+*.pyc

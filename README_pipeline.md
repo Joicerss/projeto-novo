@@ -23,3 +23,41 @@ Arquivos gerados:
 - `outputs/flags_summary.csv` — estatísticas por flag
 - `outputs/flags_inspection.xlsx` — amostra para revisão
 - `outputs/modelo_respostas.xlsx` — planilha modelo com 14 perguntas
+
+Configuração de heurísticas:
+
+- Variável de ambiente `HEURISTICS_MODE`: controla comportamento das heurísticas.
+	- `strict` (padrão): marca `pergunta_4` (indenização) apenas quando há valor monetário explícito (ex.: `R$ 1.234,56`).
+	- `lenient`: marca `pergunta_4` quando houver palavra-chave relacionada à indenização OU valor monetário.
+
+Exemplo (modo lenient):
+
+```bash
+export HEURISTICS_MODE=lenient
+python starter_scripts/01_pipeline_responder_14_questoes.py
+python scripts/auto_fill_pilot_advanced.py
+```
+
+Também é possível controlar via arquivo de configuração no repositório. O script busca, na raiz do repositório, um dos arquivos:
+- `heuristics.yml` / `heuristics.yaml` (YAML)
+- `heuristics.json` (JSON)
+
+Exemplo `heuristics.yml`:
+
+```yaml
+mode: lenient
+# ou: HEURISTICS_MODE: lenient
+```
+
+Se presente, o arquivo terá precedência sobre o padrão, mas será sobrescrito pela variável de ambiente `HEURISTICS_MODE` quando esta estiver definida.
+
+Exemplo de arquivo de configuração (fornecido em `config/examples/heuristics.yml`):
+
+```yaml
+# config/examples/heuristics.yml
+mode: lenient
+```
+
+Você pode copiar esse exemplo para a raiz do repositório e ajustar `mode` conforme necessário.
+
+
