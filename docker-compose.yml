@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  jurimetria:
+    build: .
+    container_name: projeto-jurimetria
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./notebooks:/app/notebooks
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python3 jurimetria_completa.py
+    
+  jupyter:
+    build: .
+    container_name: projeto-jurimetria-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./notebooks:/app/notebooks
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser --NotebookApp.token='' --NotebookApp.password=''
+    profiles:
+      - jupyter
+
+# Para executar apenas a análise:
+#   docker-compose up jurimetria
+#
+# Para executar Jupyter Notebook:
+#   docker-compose --profile jupyter up jupyter
+#   Acesse: http://localhost:8888
