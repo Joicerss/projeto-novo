@@ -39,8 +39,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:${{ github.sha }}
-            ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -66,18 +66,23 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull image
-          run: |
-          IMAGE=ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
+        run: |
+          IMAGE=${{ env.IMAGE }}:latest
           docker pull $IMAGE
 
       - name: Run smoke test (execute pipeline inside container)
-          run: |
-          IMAGE=ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo:latest
+        run: |
+          IMAGE=${{ env.IMAGE }}:latest
           mkdir -p $GITHUB_WORKSPACE/outputs
           docker run --rm \
             -v $GITHUB_WORKSPACE/data:/app/data \
             -v $GITHUB_WORKSPACE/outputs:/app/outputs \
             $IMAGE
+
+      - name: Set IMAGE env (lowercase owner)
+        # ensures we have a lowercase owner to build valid docker tags
+        run: |
+          echo "IMAGE=ghcr.io/$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')/projeto-novo" >> $GITHUB_ENV
 
       - name: Assert outputs exist
         run: |
