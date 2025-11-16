@@ -97,6 +97,18 @@ def fill_advanced(row):
                     return str(m).lower()
             except Exception:
                 pass
+        # validate
+        allowed = {'strict', 'lenient'}
+        if isinstance(p, Path):
+            pass
+        # At this point 'm' may be set from files; validate it
+        if 'm' in locals() and m:
+            mval = str(m).lower()
+            if mval in allowed:
+                return mval
+            else:
+                print(f"Aviso: valor inválido para 'mode' em arquivo de heurísticas: '{m}'. Usando 'strict' por padrão.")
+                return 'strict'
         return 'strict'
 
     mode = get_heuristics_mode()

@@ -81,3 +81,21 @@ def test_file_based_config(tmp_path):
     finally:
         if y.exists():
             y.unlink()
+
+
+def test_invalid_config_falls_back_to_strict(tmp_path):
+    # write invalid heuristics.yml at repo root
+    repo_root = Path(__file__).resolve().parents[1]
+    y = repo_root / 'heuristics.yml'
+    try:
+        y.write_text('mode: unknown\n')
+        spec = importlib.util.spec_from_file_location('adv_mod_conf2', str(repo_root / 'scripts' / 'auto_fill_pilot_advanced.py'))
+        mod_c = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod_c)
+        row = {'sample_text': 'Pedido de indenização por danos', 'numero_processo': '1'}
+        out_c = mod_c.fill_advanced(row)
+        # invalid mode should fallback to strict -> pergunta_4 stays 'nao' (no R$ present)
+        assert out_c['pergunta_4'] == 'nao'
+    finally:
+        if y.exists():
+            y.unlink()
