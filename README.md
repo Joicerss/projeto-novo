@@ -2,6 +2,30 @@
 
 Esta pasta contém os resultados gerados pelo script `jurimetria_completa.py`.
 
+## GitHub Copilot Extension Check (Passo 1)
+
+Scripts para verificar se as extensões do GitHub Copilot estão instaladas:
+
+- `check_copilot_extensions.py` — Script Python para verificar extensões
+- `check_copilot_extensions.sh` — Script Bash para Unix/Linux/Mac
+- `check_copilot_extensions.ps1` — Script PowerShell para Windows
+- `COPILOT_CHECK_INSTRUCTIONS.md` — Instruções detalhadas
+
+**Uso rápido:**
+
+```bash
+# Python
+python3 check_copilot_extensions.py
+
+# Bash (Unix/Linux/Mac)
+bash check_copilot_extensions.sh
+
+# PowerShell (Windows)
+powershell -ExecutionPolicy Bypass -File check_copilot_extensions.ps1
+```
+
+Os scripts verificam se `GitHub.copilot` e `GitHub.copilot-chat` estão instalados e reportam "Encontrei: [status]".
+
 Arquivos principais:
 
 - `distribuicao_tempo_tramitacao.png` — histograma do tempo de tramitação.

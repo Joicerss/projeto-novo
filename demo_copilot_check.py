@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+"""
+Demo script showing expected output when extensions are installed vs not installed.
+This demonstrates the "Passo 1" functionality without requiring VS Code.
+"""
+
+def demo_installed():
+    """Demo when both extensions are installed."""
+    print("\n" + "=" * 60)
+    print("DEMO: Quando ambas as extensões ESTÃO instaladas")
+    print("=" * 60)
+    print()
+    print("============================================================")
+    print("Passo 1: Verificando extensões do GitHub Copilot")
+    print("============================================================")
+    print()
+    print("✓ VS Code detectado")
+    print()
+    print("Verificando extensões...")
+    print()
+    print("-" * 60)
+    print("RESULTADO:")
+    print("-" * 60)
+    print("✓ GitHub Copilot: Installed")
+    print("✓ GitHub Copilot Chat: Installed")
+    print()
+    print("=" * 60)
+    print("Encontrei: Ambas as extensões estão Installed ✓")
+    print()
+    print("Próximo passo: Sign in com GitHub Copilot")
+    print("=" * 60)
+    print()
+
+
+def demo_not_installed():
+    """Demo when extensions need to be installed."""
+    print("\n" + "=" * 60)
+    print("DEMO: Quando extensões precisam ser instaladas")
+    print("=" * 60)
+    print()
+    print("============================================================")
+    print("Passo 1: Verificando extensões do GitHub Copilot")
+    print("============================================================")
+    print()
+    print("✓ VS Code detectado")
+    print()
+    print("Verificando extensões...")
+    print()
+    print("-" * 60)
+    print("RESULTADO:")
+    print("-" * 60)
+    print("✗ GitHub Copilot: Install")
+    print("✗ GitHub Copilot Chat: Install")
+    print()
+    print("=" * 60)
+    print("Encontrei: Algumas extensões precisam ser Install")
+    print()
+    print("Por favor, instale as extensões faltantes antes de prosseguir.")
+    print("Você pode instalar executando:")
+    print("  code --install-extension GitHub.copilot")
+    print("  code --install-extension GitHub.copilot-chat")
+    print("=" * 60)
+    print()
+
+
+def demo_partial():
+    """Demo when only one extension is installed."""
+    print("\n" + "=" * 60)
+    print("DEMO: Quando apenas uma extensão está instalada")
+    print("=" * 60)
+    print()
+    print("============================================================")
+    print("Passo 1: Verificando extensões do GitHub Copilot")
+    print("============================================================")
+    print()
+    print("✓ VS Code detectado")
+    print()
+    print("Verificando extensões...")
+    print()
+    print("-" * 60)
+    print("RESULTADO:")
+    print("-" * 60)
+    print("✓ GitHub Copilot: Installed")
+    print("✗ GitHub Copilot Chat: Install")
+    print()
+    print("=" * 60)
+    print("Encontrei: Algumas extensões precisam ser Install")
+    print()
+    print("Por favor, instale as extensões faltantes antes de prosseguir.")
+    print("Você pode instalar executando:")
+    print("  code --install-extension GitHub.copilot-chat")
+    print("=" * 60)
+    print()
+
+
+if __name__ == "__main__":
+    print("\n" + "=" * 60)
+    print("DEMONSTRAÇÃO: Verificação de Extensões GitHub Copilot")
+    print("Passo 1 - Três cenários possíveis")
+    print("=" * 60)
+    
+    demo_installed()
+    demo_not_installed()
+    demo_partial()
+    
+    print("\n" + "=" * 60)
+    print("Para executar a verificação real, use:")
+    print("  python3 check_copilot_extensions.py")
+    print("  bash check_copilot_extensions.sh")
+    print("  powershell -File check_copilot_extensions.ps1")
+    print("=" * 60)
+    print()
