@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  jurimetria-course:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jurimetria-course
+    volumes:
+      # Mount the current directory to /app in the container
+      - .:/app
+      # Persist data and outputs
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./notebooks:/app/notebooks
+    ports:
+      # Jupyter notebook port
+      - "8888:8888"
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    command: bash

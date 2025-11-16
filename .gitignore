@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Data files (keep structure but ignore actual data)
+data/*.csv
+data/*.xlsx
+data/*.json
+data/*.txt
+!data/.gitkeep
+
+# Output files
+outputs/*.csv
+outputs/*.json
+outputs/*.html
+outputs/*.png
+outputs/*.jpg
+!outputs/.gitkeep
+
+# Docker
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# R project files (keep for compatibility but not main focus)
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Tokens and credentials
+projeto/token
+*.token
+*.credentials
+*.key
+*.pem
