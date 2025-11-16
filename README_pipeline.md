@@ -51,4 +51,13 @@ mode: lenient
 
 Se presente, o arquivo terá precedência sobre o padrão, mas será sobrescrito pela variável de ambiente `HEURISTICS_MODE` quando esta estiver definida.
 
+Exemplo de arquivo de configuração (fornecido em `config/examples/heuristics.yml`):
+
+```yaml
+# config/examples/heuristics.yml
+mode: lenient
+```
+
+Você pode copiar esse exemplo para a raiz do repositório e ajustar `mode` conforme necessário.
+
 
