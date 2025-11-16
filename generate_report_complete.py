@@ -1,7 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-out = Path(__file__).parent
+out = Path(__file__).parent / 'output'
+out.mkdir(exist_ok=True)
 report_path = out / 'report_complete.html'
 # Read CSVs if present
 odds_csv = out / 'resultados_regressao_logistica.csv'
