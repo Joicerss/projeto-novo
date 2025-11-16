@@ -20,7 +20,8 @@ RE_CNPJ = re.compile(r"\b(\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}|\d{14})\b")
 RE_CPF = re.compile(r"\b(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})\b")
 RE_DATE = re.compile(r"\b(\d{2}/\d{2}/\d{4})\b")
 RE_YEAR = re.compile(r"\b(19|20)\d{2}\b")
-RE_VALOR = re.compile(r"R\$\s?[\d\.]+(?:,\d{2})?")
+# Improved regex to match monetary values with multiple thousand separators (case-insensitive)
+RE_VALOR = re.compile(r"[Rr]\$\s?(?:\d{1,3}(?:\.\d{3})*(?:,\d{2})?|\d+(?:,\d{2})?)")
 
 
 KEYS_SENTENCA = ["sentença", "acórdão", "decisão", "julg", "conden"]
@@ -48,7 +49,9 @@ def score_matches(matches):
 
 
 def fill_advanced(row):
-    txt = str(row.get('sample_text','') or '').lower()
+    # Keep original text for evidencias, create lowercase version for matching
+    txt_original = str(row.get('sample_text','') or '')
+    txt = txt_original.lower()
     filled = {}
     # pergunta_1 and _2 kept from base heuristics if present
     itau = str(row.get('itau_flag','')).lower() in ('true','1','sim','yes','y','t')
@@ -90,8 +93,8 @@ def fill_advanced(row):
     for i in range(10,15):
         filled[f'pergunta_{i}'] = ''
 
-    # evidencias: first 800 chars
-    evid = (txt[:800] + '...') if len(txt) > 800 else txt
+    # evidencias: first 800 chars from original text
+    evid = (txt_original[:800] + '...') if len(txt_original) > 800 else txt_original
     filled['evidencias'] = evid
 
     # confidence: based on matches
