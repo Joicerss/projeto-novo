@@ -37,8 +37,10 @@ projeto-novo/
 ### Passo 1: Construir o Container
 
 ```bash
-docker-compose build
+docker compose build
 ```
+
+> **Nota:** Use `docker compose` (v2) ao invés de `docker-compose` (v1) se você tem a versão mais recente do Docker instalada.
 
 Este comando irá:
 - Criar uma imagem Docker com Python 3.11
@@ -50,8 +52,10 @@ Este comando irá:
 ### Passo 2: Iniciar o Container
 
 ```bash
-docker-compose up --detach
+docker compose up --detach
 ```
+
+> **Nota:** Use `docker compose` (v2) ao invés de `docker-compose` (v1).
 
 O container estará rodando em segundo plano (modo detached).
 
@@ -78,6 +82,8 @@ python starter_scripts/01_pipeline_responder_14_questoes.py
 **Saída:**
 - `outputs/consolidado_flags.csv` - Dataset consolidado com flags
 - `outputs/consolidado_flags.json` - Mesmos dados em formato JSON
+
+> **💡 Dica:** Se não houver arquivos CSV em `data/`, o script irá gerar automaticamente um dataset de exemplo com 2 processos para você começar a aprender!
 
 **Flags geradas:**
 - `tem_recurso`, `tem_agravo`, `tem_apelacao`, `tem_embargos`
@@ -127,20 +133,25 @@ O token de acesso será exibido no terminal.
 
 ```bash
 # Parar o container
-docker-compose down
+docker compose down
 
 # Ver logs do container
-docker-compose logs -f
+docker compose logs -f
 
 # Reiniciar o container
-docker-compose restart
+docker compose restart
 
 # Reconstruir após mudanças no Dockerfile
-docker-compose build --no-cache
+docker compose build --no-cache
 
 # Listar containers rodando
 docker ps
+
+# Verificar versão do Docker Compose
+docker compose version
 ```
+
+> **Nota:** Todos os comandos usam `docker compose` (v2). Se você tem uma versão antiga, use `docker-compose` (v1).
 
 ## 📚 Dependências Principais
 
