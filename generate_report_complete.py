@@ -1,24 +1,27 @@
 import pandas as pd
 from pathlib import Path
 
-out = Path(__file__).parent
-report_path = out / 'report_complete.html'
-# Read CSVs if present
-odds_csv = out / 'resultados_regressao_logistica.csv'
-cox_csv = out / 'hazard_ratios_cox.csv'
 
-odds_html = '<p><em>Arquivo não encontrado</em></p>'
-cox_html = '<p><em>Arquivo não encontrado</em></p>'
+def main():
+    """Generate a complete HTML report from CSV files and PNG images."""
+    out = Path(__file__).parent
+    report_path = out / 'report_complete.html'
+    # Read CSVs if present
+    odds_csv = out / 'resultados_regressao_logistica.csv'
+    cox_csv = out / 'hazard_ratios_cox.csv'
 
-if odds_csv.exists():
-    df_odds = pd.read_csv(odds_csv)
-    odds_html = df_odds.to_html(index=False, classes='table', border=0)
+    odds_html = '<p><em>Arquivo não encontrado</em></p>'
+    cox_html = '<p><em>Arquivo não encontrado</em></p>'
 
-if cox_csv.exists():
-    df_cox = pd.read_csv(cox_csv)
-    cox_html = df_cox.to_html(index=False, classes='table', border=0)
+    if odds_csv.exists():
+        df_odds = pd.read_csv(odds_csv)
+        odds_html = df_odds.to_html(index=False, classes='table', border=0)
 
-html = f'''<!doctype html>
+    if cox_csv.exists():
+        df_cox = pd.read_csv(cox_csv)
+        cox_html = df_cox.to_html(index=False, classes='table', border=0)
+
+    html = f'''<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -79,5 +82,9 @@ html = f'''<!doctype html>
 </html>
 '''
 
-report_path.write_text(html, encoding='utf-8')
-print('Relatório completo gerado em:', report_path)
+    report_path.write_text(html, encoding='utf-8')
+    print('Relatório completo gerado em:', report_path)
+
+
+if __name__ == '__main__':
+    main()
