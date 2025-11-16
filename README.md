@@ -2,12 +2,21 @@
 
 Este projeto demonstra análises jurimétricas completas usando técnicas de ciência de dados aplicadas ao sistema judicial.
 
+---
+
+## 🚀 **[COMECE AQUI!](COMECE_AQUI.md)** ⭐
+
+**Novo no projeto?** Leia o guia [COMECE_AQUI.md](COMECE_AQUI.md) para começar passo a passo!
+
+---
+
 ## 📚 Documentação Completa
 
 **[📖 ÍNDICE DA DOCUMENTAÇÃO](INDEX.md)** - Guia completo de toda a documentação disponível
 
 ### Documentos Principais
 
+- **[COMECE AQUI](COMECE_AQUI.md)** ⭐ - Ponto de partida para iniciantes
 - **[Visão Geral do Projeto](PROJECT_OVERVIEW.md)** - Entenda o que é o projeto, estrutura e conceitos
 - **[Guia de Início Rápido](GETTING_STARTED.md)** - Configure o ambiente e comece a trabalhar
 - **[Tutorial Passo a Passo](TUTORIAL.md)** - Aprenda a fazer análise jurismétrica do zero
