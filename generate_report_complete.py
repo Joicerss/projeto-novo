@@ -1,5 +1,37 @@
 import pandas as pd
+import sys
 from pathlib import Path
+from auth import TokenAuth
+
+# Verificação de autenticação
+auth = TokenAuth()
+
+# Verifica se o sistema tem um token configurado
+if not auth.has_token():
+    print("❌ ERRO: Sistema de autenticação não configurado.")
+    print("❌ ERROR: Authentication system not configured.")
+    print("\nPor favor, execute primeiro: python token_manager.py gerar")
+    print("Please run first: python token_manager.py generate")
+    sys.exit(1)
+
+# Solicita o token ao usuário
+if len(sys.argv) < 2:
+    print("❌ ERRO: Token de autenticação não fornecido.")
+    print("❌ ERROR: Authentication token not provided.")
+    print("\nUso: python generate_report_complete.py <token>")
+    print("Usage: python generate_report_complete.py <token>")
+    sys.exit(1)
+
+token_fornecido = sys.argv[1]
+
+# Verifica o token
+if not auth.verify_token(token_fornecido):
+    print("❌ ERRO: Token inválido!")
+    print("❌ ERROR: Invalid token!")
+    sys.exit(1)
+
+print("✅ Autenticação bem-sucedida. Gerando relatório...")
+print("✅ Authentication successful. Generating report...")
 
 out = Path(__file__).parent
 report_path = out / 'report_complete.html'
@@ -80,4 +112,5 @@ html = f'''<!doctype html>
 '''
 
 report_path.write_text(html, encoding='utf-8')
-print('Relatório completo gerado em:', report_path)
+print('✅ Relatório completo gerado em:', report_path)
+print('✅ Complete report generated at:', report_path)

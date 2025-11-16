@@ -2,6 +2,24 @@
 
 Esta pasta contém os resultados gerados pelo script `jurimetria_completa.py`.
 
+## 🔐 Autenticação / Authentication
+
+Este projeto agora possui um sistema de autenticação baseado em token para proteger o acesso à geração de relatórios.
+
+**Para mais informações, consulte: [AUTHENTICATION.md](AUTHENTICATION.md)**
+
+### Início Rápido / Quick Start
+
+1. Gerar token / Generate token:
+   ```bash
+   python token_manager.py gerar
+   ```
+
+2. Gerar relatório com autenticação / Generate report with authentication:
+   ```bash
+   python generate_report_complete.py <seu_token>
+   ```
+
 Arquivos principais:
 
 - `distribuicao_tempo_tramitacao.png` — histograma do tempo de tramitação.
@@ -18,14 +36,20 @@ Arquivos principais:
 
 Como reproduzir:
 
-1. Garanta que o Python 3.8+ e as dependências estejam instaladas (ver `requirements.txt`).
-2. Rode o script principal (no diretório onde o script está):
+1. Garanta que o Python 3.8+ e as dependências estejam instaladas:
+   ```bash
+   pip install pandas
+   ```
 
-```powershell
-& "C:\Path\to\python.exe" "C:\Users\Usuario\OneDrive\Área de Trabalho\jurimetria_completa.py"
-```
+2. Configure a autenticação (primeira vez):
+   ```bash
+   python token_manager.py gerar
+   ```
 
-3. Os arquivos serão gravados nesta pasta `jurimetria_case/`.
+3. Gere o relatório fornecendo o token:
+   ```bash
+   python generate_report_complete.py <seu_token>
+   ```
 
 Git local
 
