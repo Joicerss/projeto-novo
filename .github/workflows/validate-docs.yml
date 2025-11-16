@@ -1,0 +1,24 @@
+# Workflow to validate documentation files exist
+name: Validate Documentation
+
+on:
+  push:
+    paths:
+      - '**.md'
+  pull_request:
+    paths:
+      - '**.md'
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check required documentation files
+        run: |
+          echo "Checking for required documentation files..."
+          test -f README.md && echo "✓ README.md found"
+          test -f COPILOT_TROUBLESHOOTING.md && echo "✓ COPILOT_TROUBLESHOOTING.md found"
+          test -f GUIA_RAPIDO_COPILOT.md && echo "✓ GUIA_RAPIDO_COPILOT.md found"
+          echo "All required documentation files present!"

@@ -2,6 +2,19 @@
 
 Este documento fornece orientações para resolver problemas de instalação e autenticação do GitHub Copilot.
 
+## Índice
+
+- [Contexto do Problema](#contexto-do-problema)
+- [Opções de Solução](#opções-de-solução)
+  - [Opção 1: Instalar Extensão Copilot no VS Code (Recomendado) ✅](#opção-1-instalar-extensão-copilot-no-vs-code-recomendado-)
+  - [Opção 2: Autenticar CLI via Hotspot/VPN](#opção-2-autenticar-cli-via-hotspotVPN)
+  - [Opção 3: Gerar Log de Diagnóstico](#opção-3-gerar-log-de-diagnóstico)
+  - [Opção 4: Explicação Detalhada](#opção-4-explicação-detalhada)
+- [Comparação das Opções](#comparação-das-opções)
+- [Perguntas Frequentes](#perguntas-frequentes)
+- [Suporte Adicional](#suporte-adicional)
+- [Resumo — Decisão Rápida](#resumo--decisão-rápida)
+
 ## Contexto do Problema
 
 Durante a tentativa de autenticar o Copilot CLI, pode ocorrer o seguinte erro:
