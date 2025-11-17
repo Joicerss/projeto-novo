@@ -20,6 +20,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set IMAGE (step output)
+        id: set_image
+        run: |
+          owner=${GITHUB_REPOSITORY%%/*}
+          owner_lc=$(echo "$owner" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${owner_lc}/projeto-novo"
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Debug IMAGE value
+        run: |
+          echo "Using IMAGE=${{ steps.set_image.outputs.image }}"
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -39,8 +52,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE }}:${{ github.sha }}
-            ${{ env.IMAGE }}:latest
+            ${{ steps.set_image.outputs.image }}:${{ github.sha }}
+            ${{ steps.set_image.outputs.image }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -65,6 +78,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set IMAGE for smoke-test
+        id: set_image_smoke
+        run: |
+          owner=${GITHUB_REPOSITORY%%/*}
+          owner_lc=$(echo "$owner" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/${owner_lc}/projeto-novo"
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
       - name: Pull image
         run: |
           IMAGE=${{ env.IMAGE }}:latest
@@ -78,11 +99,6 @@ jobs:
             -v $GITHUB_WORKSPACE/data:/app/data \
             -v $GITHUB_WORKSPACE/outputs:/app/outputs \
             $IMAGE
-
-      - name: Set IMAGE env (lowercase owner)
-        # ensures we have a lowercase owner to build valid docker tags
-        run: |
-          echo "IMAGE=ghcr.io/$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')/projeto-novo" >> $GITHUB_ENV
 
       - name: Assert outputs exist
         run: |
