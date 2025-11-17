@@ -11,6 +11,8 @@ jobs:
   build-and-push:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo
     permissions:
       contents: read
       packages: write
@@ -20,18 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set IMAGE (step output)
-        id: set_image
-        run: |
-          owner=${GITHUB_REPOSITORY%%/*}
-          owner_lc=$(echo "$owner" | tr '[:upper:]' '[:lower:]')
-          IMAGE="ghcr.io/${owner_lc}/projeto-novo"
-          echo "image=$IMAGE" >> $GITHUB_OUTPUT
-          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
-
       - name: Debug IMAGE value
         run: |
-          echo "Using IMAGE=${{ steps.set_image.outputs.image }}"
+          echo "Using IMAGE=${{ env.IMAGE }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -52,14 +45,16 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ steps.set_image.outputs.image }}:${{ github.sha }}
-            ${{ steps.set_image.outputs.image }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   smoke-test:
     needs: build-and-push
     runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo
     permissions:
       contents: read
       packages: read
@@ -77,14 +72,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set IMAGE for smoke-test
-        id: set_image_smoke
-        run: |
-          owner=${GITHUB_REPOSITORY%%/*}
-          owner_lc=$(echo "$owner" | tr '[:upper:]' '[:lower:]')
-          IMAGE="ghcr.io/${owner_lc}/projeto-novo"
-          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
 
       - name: Pull image
         run: |
