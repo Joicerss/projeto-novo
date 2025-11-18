@@ -2,8 +2,15 @@
 .venv/
 venv/
 __pycache__/
-outputs/
-data/sample_test.csv
 .pytest_cache/
 .DS_Store
 *.pyc
+
+# Ignore test data but keep committed data files
+data/sample_test.csv
+
+# Ignore generated outputs but keep committed outputs
+outputs/consolidado_flags.csv
+outputs/consolidado_flags.json
+outputs/flags_summary.csv
+outputs/flags_inspection.xlsx
