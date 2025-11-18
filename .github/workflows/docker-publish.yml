@@ -1,6 +1,7 @@
 name: Build and publish Docker image
 
 on:
+  workflow_dispatch: {}
   push:
     branches: [ main ]
   pull_request:
@@ -11,6 +12,8 @@ jobs:
   build-and-push:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo
     permissions:
       contents: read
       packages: write
@@ -19,6 +22,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Debug IMAGE value
+        run: |
+          echo "Using IMAGE=${{ env.IMAGE }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -47,6 +54,8 @@ jobs:
   smoke-test:
     needs: build-and-push
     runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{ toLower(github.repository_owner) }}/projeto-novo
     permissions:
       contents: read
       packages: read
@@ -78,11 +87,6 @@ jobs:
             -v $GITHUB_WORKSPACE/data:/app/data \
             -v $GITHUB_WORKSPACE/outputs:/app/outputs \
             $IMAGE
-
-      - name: Set IMAGE env (lowercase owner)
-        # ensures we have a lowercase owner to build valid docker tags
-        run: |
-          echo "IMAGE=ghcr.io/$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')/projeto-novo" >> $GITHUB_ENV
 
       - name: Assert outputs exist
         run: |

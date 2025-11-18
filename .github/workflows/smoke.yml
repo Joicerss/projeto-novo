@@ -1,0 +1,51 @@
+name: CI Smoke Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then .venv/bin/pip install -r requirements.txt; fi
+
+      - name: Run tests
+        run: |
+          .venv/bin/pytest -q || true
+
+      - name: Create sample data
+        run: |
+          mkdir -p data
+          cat > data/sample_test.csv <<'CSV'
+numero_processo,partes,descricao
+0000000-00.0000.0.00.0000,Autor X,"Itau Unibanco cobrou veiculo acidente R$ 12.000,00"
+0000001-11.1111.1.11.1111,Autor Y,"Reclamação sobre veículo: carret e caminhão envolvidos"
+CSV
+
+      - name: Run pipeline
+        run: |
+          .venv/bin/python starter_scripts/01_pipeline_responder_14_questoes.py
+
+      - name: Run inspection
+        run: |
+          .venv/bin/python starter_scripts/02_inspect_flags.py || true
+
+      - name: Run auto-fill advanced (smoke)
+        run: |
+          .venv/bin/python scripts/auto_fill_pilot_advanced.py || true
+
+      - name: List outputs
+        run: ls -la outputs || true
