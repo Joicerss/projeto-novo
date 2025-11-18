@@ -28,20 +28,20 @@ jobs:
           echo "Using IMAGE=${{ env.IMAGE }}"
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
@@ -65,14 +65,23 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to GHCR
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create sample data for smoke test
+        run: |
+          mkdir -p data
+          cat > data/sample_test.csv <<'CSV'
+          numero_processo,partes,descricao
+          0000000-00.0000.0.00.0000,Autor X,"Itau Unibanco cobrou veiculo acidente R$ 12.000,00"
+          0000001-11.1111.1.11.1111,Autor Y,"Reclamação sobre veículo: carreta e caminhão envolvidos"
+          CSV
 
       - name: Pull image
         run: |
@@ -88,6 +97,21 @@ jobs:
             -v $GITHUB_WORKSPACE/outputs:/app/outputs \
             $IMAGE
 
-      - name: Assert outputs exist
+      - name: Validate outputs
         run: |
-          ls -la outputs || (echo "outputs not produced" && exit 1)
+          echo "Checking outputs directory..."
+          ls -la outputs || (echo "outputs directory not found" && exit 1)
+          
+          echo "Checking for consolidado_flags.csv..."
+          if [ ! -f outputs/consolidado_flags.csv ]; then
+            echo "ERROR: consolidado_flags.csv not produced"
+            exit 1
+          fi
+          
+          echo "Checking for consolidado_flags.json..."
+          if [ ! -f outputs/consolidado_flags.json ]; then
+            echo "ERROR: consolidado_flags.json not produced"
+            exit 1
+          fi
+          
+          echo "✓ Smoke test passed: All expected outputs generated"
