@@ -1,0 +1,19 @@
+name: No-op CI test
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Print info
+        run: |
+          echo "No-op workflow running"
+          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "IMAGE env: ${IMAGE:-<not-set>}"
