@@ -2,6 +2,14 @@
 
 Esta pasta contém os resultados gerados pelo script `jurimetria_completa.py`.
 
+## 🚀 Configuração do GitHub Copilot
+
+Para trabalhar neste projeto com assistência de IA, recomendamos usar o GitHub Copilot. 
+
+📋 **[Veja o guia completo de verificação e instalação](VERIFICACAO_COPILOT.md)**
+
+Este projeto inclui configuração automática de extensões recomendadas (`.vscode/extensions.json`) que sugerirá a instalação do GitHub Copilot e GitHub Copilot Chat quando você abrir o projeto no VS Code.
+
 Arquivos principais:
 
 - `distribuicao_tempo_tramitacao.png` — histograma do tempo de tramitação.
