@@ -7,3 +7,15 @@ data/sample_test.csv
 .pytest_cache/
 .DS_Store
 *.pyc
+
+# Generated output files (reports, plots, results)
+*.png
+*.html
+classification_report.txt
+confusion_matrix.csv
+cv_scores.csv
+hazard_ratios_cox.csv
+resultados_regressao_logistica.csv
+
+# Keep requirements.txt but ignore other generated CSVs in root
+# (use !requirements.txt pattern if needed)
