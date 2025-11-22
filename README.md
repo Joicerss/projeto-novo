@@ -1,38 +1,80 @@
-# Jurimetria Case — Resultados
+# Projeto Novo - Pipeline de Classificação de Processos
 
-Esta pasta contém os resultados gerados pelo script `jurimetria_completa.py`.
+Este repositório contém um pipeline completo para processamento e classificação de processos judiciais, incluindo validação de números CNJ, heurísticas configuráveis e geração de relatórios.
 
-Arquivos principais:
+## Estrutura do Projeto
 
-- `distribuicao_tempo_tramitacao.png` — histograma do tempo de tramitação.
-- `resultado_por_juiz.png` — contagem de resultados por juiz.
-- `boxplot_valor_causa.png` — boxplot do valor da causa por resultado.
-- `kaplan_meier_survival.png` — curva de sobrevivência Kaplan–Meier.
-- `quebra_estrutural_detectada.png` — gráfico com a quebra estrutural detectada (simulada).
-- `resultados_regressao_logistica.csv` — odds ratios / coeficientes da regressão logística.
-- `hazard_ratios_cox.csv` — sumário do modelo CoxPH (hazard ratios).
-- `classification_report.txt` — relatório de classificação (texto) do conjunto de teste.
-- `confusion_matrix.csv` — matriz de confusão em formato CSV.
-- `cv_scores.csv` — valores de acurácia por fold do cross-validation.
-- `report_complete.html` — relatório HTML completo (figuras + tabelas).
+- `starter_scripts/`: Scripts principais do pipeline.
+- `scripts/`: Scripts auxiliares (auto-preenchimento, geração de modelos).
+- `tests/`: Testes unitários (validação CNJ, heurísticas, utils).
+- `notebooks/`: Notebooks Jupyter para exploração e exemplos.
+- `config/`: Exemplos de configuração.
+- `outputs/`: Diretório onde os resultados são salvos.
+- `data/`: Diretório para dados de entrada (ex: CSVs).
 
-Como reproduzir:
+## Pré-requisitos
 
-1. Garanta que o Python 3.8+ e as dependências estejam instaladas (ver `requirements.txt`).
-2. Rode o script principal (no diretório onde o script está):
+- Python 3.10+
+- Docker (opcional, para execução em container)
 
-```powershell
-& "C:\Path\to\python.exe" "C:\Users\Usuario\OneDrive\Área de Trabalho\jurimetria_completa.py"
+## Uso Rápido (Makefile)
+
+O projeto inclui um `Makefile` para facilitar as tarefas comuns:
+
+```bash
+# Instalar dependências
+make install
+
+# Executar testes (inclui validação CNJ)
+make test
+
+# Executar o pipeline completo localmente
+make run
+
+# Limpar outputs antigos
+make clean
 ```
 
-3. Os arquivos serão gravados nesta pasta `jurimetria_case/`.
+## Execução com Docker
 
-Git local
+Para garantir reprodutibilidade, você pode rodar tudo via Docker:
 
-- Nesta pasta já existe um repositório Git local inicializado e com um commit.
-- Para enviar para um remoto: `git remote add origin <URL>` seguido de `git push -u origin main` (forneça credenciais se solicitado).
+```bash
+# Construir a imagem
+make docker-build
 
-Observações
+# Executar o container (monta volumes data/ e outputs/)
+make docker-run
+```
 
-- Os dados são simulados para demonstração.
-- Se quiser que eu inclua o script de processamento (`processar_dados_csv.py`) ou configure um CI para regenerar relatórios automaticamente, diga e eu faço.
+## Validação CNJ
+
+O projeto inclui um módulo de validação de números de processo no padrão CNJ (Conselho Nacional de Justiça).
+Os testes de validação podem ser executados com:
+
+```bash
+pytest tests/test_cnj_validation.py
+```
+
+## Configuração de Heurísticas
+
+O comportamento das heurísticas pode ser configurado via variável de ambiente `HEURISTICS_MODE` ou arquivo `heuristics.yml`.
+
+Modos disponíveis:
+- `strict` (padrão): Mais rigoroso na detecção (ex: exige valor monetário explícito para indenização).
+- `lenient`: Mais permissivo (ex: aceita palavras-chave sem valor explícito).
+
+Exemplo:
+```bash
+export HEURISTICS_MODE=lenient
+make run
+```
+
+## CI/CD
+
+O projeto possui um workflow de CI (`.github/workflows/docker-publish.yml`) configurado para:
+1. Construir a imagem Docker.
+2. Publicar no GitHub Container Registry (GHCR).
+3. Executar um "smoke test" validando a imagem publicada.
+
+*Nota: A execução do CI pode exigir aprovação manual na aba "Actions" do GitHub dependendo das configurações do repositório.*
