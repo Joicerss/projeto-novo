@@ -36,3 +36,18 @@ Observações
 
 - Os dados são simulados para demonstração.
 - Se quiser que eu inclua o script de processamento (`processar_dados_csv.py`) ou configure um CI para regenerar relatórios automaticamente, diga e eu faço.
+
+## Guia de Desenvolvimento
+
+### GitHub Copilot
+
+Se você está tendo problemas para instalar ou autenticar o GitHub Copilot (especialmente erros de DNS com `next-waitlist.azurewebsites.net`), consulte nosso guia completo de solução de problemas:
+
+📖 **[Guia de Solução de Problemas — GitHub Copilot](COPILOT_TROUBLESHOOTING.md)**
+
+O guia inclui:
+- Instalação da extensão VS Code (método recomendado)
+- Autenticação via hotspot/VPN
+- Instruções para geração de logs de diagnóstico
+- Comparação entre diferentes opções
+- FAQ e suporte adicional
