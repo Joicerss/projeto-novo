@@ -7,3 +7,14 @@ data/sample_test.csv
 .pytest_cache/
 .DS_Store
 *.pyc
+
+# Generated output files in root directory (reports, plots, results)
+# Note: Input data CSVs should be placed in data/ directory
+# Output results should be placed in outputs/ directory (already ignored above)
+*.png
+*.html
+*.csv
+*.txt
+
+# Keep requirements.txt (not a generated file)
+!requirements.txt
