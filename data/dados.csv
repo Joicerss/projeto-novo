@@ -1,0 +1,9 @@
+numero_processo,parte_autor,parte_reu,assunto,valor_causa
+0001234-56.2023.8.26.0100,João da Silva,Itaú Unibanco S/A,Indenização por Danos Morais,15000.00
+0002345-67.2023.8.26.0200,Maria Souza,Banco Itaú,Revisão Contratual,25000.00
+0003456-78.2023.8.26.0300,Pedro Santos,Empresa ABC Ltda,Acidente de Trânsito com Caminhão,50000.00
+0004567-89.2023.8.26.0400,Ana Costa,Transportadora XYZ,Danos em Carreta,30000.00
+0005678-90.2023.8.26.0500,Carlos Lima,ItauUnibanco,Cobrança Indevida,10000.00
+0006789-01.2023.8.26.0600,Juliana Pereira,Seguradora DEF,Indenização Veículo,20000.00
+0007890-12.2023.8.26.0700,Roberto Alves,Concessionária GHI,Defeito em Ônibus,40000.00
+0008901-23.2023.8.26.0800,Fernanda Rocha,Banco Itaú S/A,Empréstimo Consignado,12000.00
