@@ -11,11 +11,8 @@ data/sample_test.csv
 # Generated output files (reports, plots, results)
 *.png
 *.html
-classification_report.txt
-confusion_matrix.csv
-cv_scores.csv
-hazard_ratios_cox.csv
-resultados_regressao_logistica.csv
+*.csv
+*.txt
 
-# Keep requirements.txt but ignore other generated CSVs in root
-# (use !requirements.txt pattern if needed)
+# Keep requirements.txt (not a generated file)
+!requirements.txt
