@@ -8,7 +8,9 @@ data/sample_test.csv
 .DS_Store
 *.pyc
 
-# Generated output files (reports, plots, results)
+# Generated output files in root directory (reports, plots, results)
+# Note: Input data CSVs should be placed in data/ directory
+# Output results should be placed in outputs/ directory (already ignored above)
 *.png
 *.html
 *.csv
