@@ -15,9 +15,12 @@ Onde:
 - OOOO: Unidade de origem (4 dígitos)
 
 O algoritmo de validação utiliza módulo 97.
+
+Nota: Este é um script educacional standalone. A lógica de validação também está
+disponível em tests/test_cnj_validation.py, mas foi replicada aqui para que o
+script possa ser executado de forma independente sem dependências adicionais.
 """
 
-import re
 from typing import List, Tuple
 
 
