@@ -50,7 +50,24 @@ make docker-run
 ## Validação CNJ
 
 O projeto inclui um módulo de validação de números de processo no padrão CNJ (Conselho Nacional de Justiça).
-Os testes de validação podem ser executados com:
+
+### Script de Demonstração
+
+Para aprender sobre validação CNJ com exemplos práticos, execute o script educacional:
+
+```bash
+python3 aula01_saneamento_base.py
+```
+
+Este script demonstra:
+- Validação de números CNJ no formato NNNNNNN-DD.AAAA.J.TR.OOOO
+- Cálculo de dígitos verificadores
+- Exemplos de CNJs válidos e inválidos
+- Formatação de números CNJ
+
+### Testes de Validação
+
+Os testes unitários de validação podem ser executados com:
 
 ```bash
 pytest tests/test_cnj_validation.py
