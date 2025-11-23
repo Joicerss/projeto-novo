@@ -103,11 +103,14 @@ def calculate_check_digit(base: str) -> str:
     Calcula o dígito verificador para um número CNJ sem os dígitos verificadores.
     
     Args:
-        base: String com NNNNNNN + AAAA + J + TR + OOOO (18 dígitos)
+        base: String com NNNNNNN + AAAA + J + TR + OOOO (18 dígitos ou mais)
     
     Returns:
         str: Dígito verificador de 2 dígitos
     """
+    # Sanitize input - remove non-digit characters
+    base = "".join(filter(str.isdigit, base))
+    
     if len(base) != 18:
         raise ValueError("Base deve conter exatamente 18 dígitos")
     
